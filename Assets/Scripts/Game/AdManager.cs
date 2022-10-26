@@ -58,8 +58,6 @@ public class AdManager : MonoBehaviour
         // Create a 320x50 banner at the top of the screen.
         this.bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 
-        // Load a banner ad.
-        this.bannerView.LoadAd(this.CreateAdRequest());
     }
 
     public void RequestInterstitial()
@@ -77,15 +75,12 @@ public class AdManager : MonoBehaviour
         // Create an interstitial.
         this.interstitial = new InterstitialAd(adUnitId);
 
-        // Load an interstitial ad.
-        this.interstitial.LoadAd(this.CreateAdRequest());
     }
 
     public void RequestRewardBasedVideo()
     {
         string adUnitId = "ca-app-pub-3940256099942544/5224354917";
 
-        this.rewardBasedVideo.LoadAd(this.CreateAdRequest(), adUnitId);
     }
 
     public void ShowInterstitial()
