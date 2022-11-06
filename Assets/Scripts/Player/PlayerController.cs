@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
 
     public float slideDuration = 1.5f;
 
+    public bool clickJump;
+    public bool clickDown;
+    public bool clickRight;
+    public bool clickLeft;
+
     bool toggle = false;
 
     void Start()
@@ -60,6 +65,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGameStarted", true);
         move.z = forwardSpeed;
 
+        clickJump = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
+        clickDown = Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow);
+        clickLeft = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
+        clickRight = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.17f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
         if (isGrounded && velocity.y < 0)
@@ -67,10 +77,10 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            if (SwipeManager.swipeUp)
+            if (SwipeManager.swipeUp || clickJump)
                 Jump();
 
-            if (SwipeManager.swipeDown && !isSliding)
+            if (SwipeManager.swipeDown && !isSliding || clickDown)
                 StartCoroutine(Slide());
         }
         else
@@ -86,13 +96,13 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Gather the inputs on which lane we should be
-        if (SwipeManager.swipeRight)
+        if (SwipeManager.swipeRight || clickRight)
         {
             desiredLane++;
             if (desiredLane == 3)
                 desiredLane = 2;
         }
-        if (SwipeManager.swipeLeft)
+        if (SwipeManager.swipeLeft || clickLeft)
         {
             desiredLane--;
             if (desiredLane == -1)
