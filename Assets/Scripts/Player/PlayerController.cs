@@ -47,13 +47,14 @@ public class PlayerController : MonoBehaviour
         {
             toggle = false;
             if (forwardSpeed < maxSpeed)
-                forwardSpeed += 0.1f * Time.fixedDeltaTime;
+                forwardSpeed += 1f * Time.fixedDeltaTime;
+                Time.timeScale += 0.051f * Time.fixedDeltaTime;
         }
         else
         {
             toggle = true;
             if (Time.timeScale < 2f)
-                Time.timeScale += 0.005f * Time.fixedDeltaTime;
+                Time.timeScale += 0.051f * Time.fixedDeltaTime;
         }
     }
 
